@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>تمرینات هوازی هفتگی</title>
+  <title>تمرینات هفتگی</title>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Vazirmatn', sans-serif;
-      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      background: linear-gradient(135deg, #00c9ff, #92fe9d);
       margin: 0;
       padding: 0;
       direction: rtl;
@@ -27,98 +27,172 @@
       font-weight: 700;
       font-size: 24px;
     }
-    .day-section {
-      background: #ffffff;
+    .day-block {
+      background: #fff;
       border-radius: 16px;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
       padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
     }
-    .day-title {
+    .day-block h3 {
+      margin: 0 0 12px;
       font-size: 20px;
-      font-weight: 700;
-      color: #1976d2;
-      margin-bottom: 10px;
+      color: #2196f3;
     }
     .exercise {
-      background-color: #f1f1f1;
-      border-radius: 12px;
-      padding: 10px 14px;
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      margin-bottom: 16px;
     }
-    .exercise span {
+    .exercise h4 {
+      margin: 0 0 8px;
       font-size: 16px;
-      font-weight: 500;
+      color: #333;
     }
-    .icon {
-      font-size: 20px;
+    iframe {
+      width: 100%;
+      height: 200px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+    .timer {
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #2196f3;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .back {
+      text-align: center;
+      margin-top: 30px;
+    }
+    .back a {
+      text-decoration: none;
+      color: #fff;
+      background-color: #2196f3;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="header">
-      <h2>🏃‍♂️ تمرینات هوازی هفتگی</h2>
+      <h2 id="title">🏋️‍♂️ تمرینات هفتگی</h2>
     </div>
 
-    <!-- شنبه -->
-    <div class="day-section">
-      <div class="day-title">شنبه</div>
-      <div class="exercise"><span>پیاده‌روی سریع (30 دقیقه)</span><span class="icon">🚶‍♂️</span></div>
-      <div class="exercise"><span>طناب‌زنی (3 × 1 دقیقه)</span><span class="icon">🪢</span></div>
-      <div class="exercise"><span>کشش پا و کمر</span><span class="icon">🧘‍♂️</span></div>
+    <!-- روزها -->
+    <div class="day-block">
+      <h3>شنبه</h3>
+      <div class="exercise">
+        <h4>اسکوات</h4>
+        <iframe src="https://www.youtube.com/embed/aclHkVaku9U" allowfullscreen></iframe>
+        <div class="timer" id="timer1">00:30</div>
+        <button onclick="startTimer('timer1', 30)">شروع تایمر</button>
+      </div>
+      <div class="exercise">
+        <h4>پلانک</h4>
+        <iframe src="https://www.youtube.com/embed/pSHjTRCQxIw" allowfullscreen></iframe>
+        <div class="timer" id="timer2">00:30</div>
+        <button onclick="startTimer('timer2', 30)">شروع تایمر</button>
+      </div>
     </div>
 
-    <!-- یک‌شنبه -->
-    <div class="day-section">
-      <div class="day-title">یک‌شنبه</div>
-      <div class="exercise"><span>دویدن آهسته (20 دقیقه)</span><span class="icon">🏃‍♂️</span></div>
-      <div class="exercise"><span>حرکات زانو بالا (3 × 30 ثانیه)</span><span class="icon">🦵</span></div>
-      <div class="exercise"><span>تنفس عمیق و سردکردن</span><span class="icon">🌬️</span></div>
+    <div class="day-block">
+      <h3>یک‌شنبه</h3>
+      <div class="exercise">
+        <h4>لانج</h4>
+        <iframe src="https://www.youtube.com/embed/QOVaHwm-Q6U" allowfullscreen></iframe>
+        <div class="timer" id="timer3">00:30</div>
+        <button onclick="startTimer('timer3', 30)">شروع تایمر</button>
+      </div>
+      <div class="exercise">
+        <h4>کرانچ شکم</h4>
+        <iframe src="https://www.youtube.com/embed/Xyd_fa5zoEU" allowfullscreen></iframe>
+        <div class="timer" id="timer4">00:30</div>
+        <button onclick="startTimer('timer4', 30)">شروع تایمر</button>
+      </div>
     </div>
 
-    <!-- دوشنبه -->
-    <div class="day-section">
-      <div class="day-title">دوشنبه</div>
-      <div class="exercise"><span>رقص هوازی (15 دقیقه)</span><span class="icon">💃</span></div>
-      <div class="exercise"><span>پلانک جانبی (2 × 30 ثانیه)</span><span class="icon">🧍‍♂️</span></div>
-      <div class="exercise"><span>کشش شانه و گردن</span><span class="icon">🧘‍♀️</span></div>
+    <div class="day-block">
+      <h3>دوشنبه</h3>
+      <div class="exercise">
+        <h4>پوش‌آپ</h4>
+        <iframe src="https://www.youtube.com/embed/IODxDxX7oi4" allowfullscreen></iframe>
+        <div class="timer" id="timer5">00:30</div>
+        <button onclick="startTimer('timer5', 30)">شروع تایمر</button>
+      </div>
+      <div class="exercise">
+        <h4>حرکت کوهنورد</h4>
+        <iframe src="https://www.youtube.com/embed/cnyTQDSE884" allowfullscreen></iframe>
+        <div class="timer" id="timer6">00:30</div>
+        <button onclick="startTimer('timer6', 30)">شروع تایمر</button>
+      </div>
     </div>
 
-    <!-- سه‌شنبه -->
-    <div class="day-section">
-      <div class="day-title">سه‌شنبه</div>
-      <div class="exercise"><span>دوچرخه ثابت یا خیابانی (30 دقیقه)</span><span class="icon">🚴‍♂️</span></div>
-      <div class="exercise"><span>حرکات پروانه‌ای (3 × 20)</span><span class="icon">🦋</span></div>
-      <div class="exercise"><span>کشش پاها</span><span class="icon">🧘</span></div>
+    <div class="day-block">
+      <h3>سه‌شنبه</h3>
+      <div class="exercise">
+        <h4>اسکوات پرشی</h4>
+        <iframe src="https://www.youtube.com/embed/Ut4bXlD4ZzI" allowfullscreen></iframe>
+        <div class="timer" id="timer7">00:30</div>
+        <button onclick="startTimer('timer7', 30)">شروع تایمر</button>
+      </div>
+      <div class="exercise">
+        <h4>پلانک پهلو</h4>
+        <iframe src="https://www.youtube.com/embed/0o0kNeOyH98" allowfullscreen></iframe>
+        <div class="timer" id="timer8">00:30</div>
+        <button onclick="startTimer('timer8', 30)">شروع تایمر</button>
+      </div>
     </div>
 
-    <!-- چهارشنبه -->
-    <div class="day-section">
-      <div class="day-title">چهارشنبه</div>
-      <div class="exercise"><span>شنا در استخر یا تمرینات آبی</span><span class="icon">🏊‍♂️</span></div>
-      <div class="exercise"><span>حرکات اسکوات پرشی (3 × 15)</span><span class="icon">🦘</span></div>
-      <div class="exercise"><span>تنفس و آرام‌سازی</span><span class="icon">🧘‍♂️</span></div>
+    <div class="day-block">
+      <h3>چهارشنبه</h3>
+      <div class="exercise">
+        <h4>برپی</h4>
+        <iframe src="https://www.youtube.com/embed/dZgVxmf6jkA" allowfullscreen></iframe>
+        <div class="timer" id="timer9">00:30</div>
+        <button onclick="startTimer('timer9', 30)">شروع تایمر</button>
+      </div>
+      <div class="exercise">
+        <h4>کرانچ معکوس</h4>
+        <iframe src="https://www.youtube.com/embed/9FGilxCbdz8" allowfullscreen></iframe>
+        <div class="timer" id="timer10">00:30</div>
+        <button onclick="startTimer('timer10', 30)">شروع تایمر</button>
+      </div>
     </div>
 
-    <!-- پنج‌شنبه -->
-    <div class="day-section">
-      <div class="day-title">پنج‌شنبه</div>
-      <div class="exercise"><span>پیاده‌روی در طبیعت (40 دقیقه)</span><span class="icon">🌳</span></div>
-      <div class="exercise"><span>حرکات شکم (3 × 20)</span><span class="icon">🧘‍♀️</span></div>
-      <div class="exercise"><span>کشش ستون فقرات</span><span class="icon">🧘</span></div>
+    <div class="day-block">
+      <h3>پنج‌شنبه</h3>
+      <div class="exercise">
+        <h4>دیپ پشت بازو</h4>
+        <iframe src="https://www.youtube.com/embed/6kALZikXxLc" allowfullscreen></iframe>
+        <div class="timer" id="timer11">00:30</div>
+        <button onclick="startTimer('timer11', 30)">شروع تایمر</button>
+      </div>
+      <div class="exercise">
+        <h4>بالا آوردن پا</h4>
+        <iframe src="https://www.youtube.com/embed/JB2oyawG9KI" allowfullscreen></iframe>
+        <div class="timer" id="timer12">00:30</div>
+        <button onclick="startTimer('timer12', 30)">شروع تایمر</button>
+      </div>
     </div>
 
-    <!-- جمعه -->
-    <div class="day-section">
-      <div class="day-title">جمعه</div>
-      <div class="exercise"><span>تمرینات ترکیبی هوازی (20 دقیقه)</span><span class="icon">🔥</span></div>
-      <div class="exercise"><span>حرکات لانج (3 × 12)</span><span class="icon">🦵</span></div>
-      <div class="exercise"><span>مدیتیشن و سردکردن</span><span class="icon">🧘‍♂️</span></div>
-    </div>
-  </div>
-</body>
-</html>
+    <div class="day-block">
+      <h3>جمعه</h3>
+      <div class="exercise">
+        <h4>اسکوات با دمبل</h4>
+        <iframe src="https://www.youtube.com/embed/UXJrBgI2RxA" allowfullscreen></iframe>
+        <div class="timer" id="timer13">00:30</div>
+        <button onclick="startTimer('timer13', 30)">شروع تایمر</button>
+      </div>
+      <div class="exercise">
+        <h4>پلانک
