@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>داشبورد سلامت</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: linear-gradient(135deg, #00c9ff, #92fe9d);
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+    }
+    .container {
+      max-width: 480px;
+      margin: auto;
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #fff;
+    }
+    .header h2 {
+      font-weight: 700;
+      font-size: 24px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      padding: 18px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+    }
+    .arrow {
+      background-color: #2196f3;
+      color: white;
+      border-radius: 50%;
+      padding: 6px 10px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2 id="greeting">سلام 👋</h2>
+    </div>
+
+    <div class="card" onclick="location.href='meal-plan.html'">
+      <span class="card-title" id="mealBtn">🍽️ برنامه غذایی امروز</span>
+      <span class="arrow">➜</span>
+    </div>
+
+    <div class="card" onclick="location.href='exercise.html'">
+      <span class="card-title" id="exerciseBtn">🏋️‍♂️ تمرینات پیشنهادی</span>
+      <span class="arrow">➜</span>
+    </div>
+
+    <div class="card" onclick="location.href='progress.html'">
+      <span class="card-title" id="progressBtn">📊 گزارش پیشرفت</span>
+      <span class="arrow">➜</span>
+    </div>
+
+    <div class="card" onclick="location.href='settings.html'">
+      <span class="card-title" id="settingsBtn">⚙️ تنظیمات</span>
+      <span class="arrow">➜</span>
+    </div>
+  </div>
+
+  <script>
+    const translations = {
+      fa: {
+        greeting: "Hi ",
+        meal: "🍽️ برنامه غذایی امروز",
+        exercise: "🏋️‍♂️ تمرینات پیشنهادی",
+        progress: "📊 گزارش پیشرفت",
+        settings: "⚙️ تنظیمات"
+      },
+      en: {
+        greeting: "Hi ",
+        meal: "🍽️ Today's Meal Plan",
+        exercise: "🏋️‍♂️ Recommended Exercises",
+        progress: "📊 Progress Report",
+        settings: "⚙️ Settings"
+      }
+    };
+
+    function applyLanguage() {
+      const settings = JSON.parse(localStorage.getItem('userSettings')) || {};
+      const lang = settings.language || 'fa';
+      const t = translations[lang];
+
+      const username = settings.username || 'کاربر';
+
+      document.getElementById('greeting').textContent = `${t.greeting} ${username}`;
+      document.getElementById('mealBtn').textContent = t.meal;
+      document.getElementById('exerciseBtn').textContent = t.exercise;
+      document.getElementById('progressBtn').textContent = t.progress;
+      document.getElementById('settingsBtn').textContent = t.settings;
+
+      document.body.style.direction = lang === 'en' ? 'ltr' : 'rtl';
+    }
+
+    window.onload = applyLanguage;
+  </script>
+</body>
+</html>
