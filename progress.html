@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>گزارش پیشرفت</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: linear-gradient(135deg, #fdfbfb, #ebedee);
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+    }
+    .container {
+      max-width: 480px;
+      margin: auto;
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+    .header h2 {
+      font-weight: 700;
+      font-size: 24px;
+    }
+    form {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-left: 6px;
+    }
+    .log {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    .log-entry {
+      font-size: 15px;
+      margin-bottom: 10px;
+      border-bottom: 1px dashed #ccc;
+      padding-bottom: 6px;
+    }
+    canvas {
+      background: #fff;
+      border-radius: 16px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>📊 گزارش پیشرفت</h2>
+      <p>ثبت وزن، قد و محاسبه خودکار BMI + نمودار</p>
+    </div>
+
+    <form id="progressForm">
+      <input type="date" id="date" required>
+      <input type="number" id="age" placeholder="سن (سال)" required>
+      <input type="number" id="height" placeholder="قد (سانتی‌متر)" required>
+      <input type="number" id="weight" placeholder="وزن (کیلوگرم)" required>
+      <button type="submit">ثبت اطلاعات</button>
+    </form>
+
+    <div class="log" id="logContainer">
+      <h3>📅 سوابق ثبت‌شده:</h3>
+    </div>
+
+    <canvas id="progressChart" height="300"></canvas>
+  </div>
+
+  <script>
+    const form = document.getElementById('progressForm');
+    const logContainer = document.getElementById('logContainer');
+    const ctx = document.getElementById('progressChart').getContext('2d');
+    let chart;
+    let editIndex = null;
+
+    function calculateBMI(weight, heightCm) {
+      const heightM = heightCm / 100;
+      return (weight / (heightM * heightM)).toFixed(1);
+    }
+
+    function loadProgress() {
+      const data = JSON.parse(localStorage.getItem('progressLog')) || [];
+      logContainer.innerHTML = '<h3>📅 سوابق ثبت‌شده:</h3>';
+      const labels = [], weights = [], bmis = [];
+
+      data.forEach((entry, index) => {
+        labels.push(entry.date);
+        weights.push(entry.weight);
+        bmis.push(entry.bmi);
+
+        const div = document.createElement('div');
+        div.className = 'log-entry';
+        div.innerHTML = `
+          📆 ${entry.date} | 🎂 سن: ${entry.age} | ⚖️ وزن: ${entry.weight}kg | 📏 قد: ${entry.height}cm | BMI: ${entry.bmi}
+          <br>
+          <button onclick="editEntry(${index})">✏️ ویرایش</button>
+          <button onclick="deleteEntry(${index})">🗑️ حذف</button>
+        `;
+        logContainer.appendChild(div);
+      });
+
+      if (chart) chart.destroy();
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [
+            {
+              label: 'وزن (kg)',
+              data: weights,
+              borderColor: '#42a5f5',
+              backgroundColor: 'rgba(66,165,245,0.1)',
+              tension: 0.3
+            },
+            {
+              label: 'BMI',
+              data: bmis,
+              borderColor: '#ef5350',
+              backgroundColor: 'rgba(239,83,80,0.1)',
+              tension: 0.3
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              labels: { font: { family: 'Vazirmatn' } }
+            }
+          },
+          scales: {
+            x: { title: { display: true, text: 'تاریخ' } },
+            y: { title: { display: true, text: 'مقدار' }, beginAtZero: false }
+          }
+        }
+      });
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const date = document.getElementById('date').value;
+      const age = parseInt(document.getElementById('age').value);
+      const height = parseFloat(document.getElementById('height').value);
+      const weight = parseFloat(document.getElementById('weight').value);
+
+      if (!date || isNaN(age) || isNaN(height) || isNaN(weight)) {
+        alert("لطفاً همه فیلدها را به‌درستی پر کنید.");
+        return;
+      }
+
+      const bmi = calculateBMI(weight, height);
+      const newEntry = { date, age, height, weight, bmi };
+      const data = JSON.parse(localStorage.getItem('progressLog')) || [];
+
+      if (editIndex !== null) {
+        data[editIndex] = newEntry;
+        editIndex = null;
+      } else {
+        data.push(newEntry);
+      }
+
+      localStorage.setItem('progressLog', JSON.stringify(data));
+      form.reset();
+      loadProgress();
+    });
+
+    function deleteEntry(index) {
+      const data = JSON.parse(localStorage.getItem('progressLog')) || [];
+      data.splice(index, 1);
+      localStorage.setItem('progressLog', JSON.stringify(data));
+      loadProgress();
+    }
+
+    function editEntry(index) {
+      const data = JSON.parse(localStorage.getItem('progressLog')) || [];
+      const entry = data[index];
+      document.getElementById('date').value = entry.date;
+      document.getElementById('age').value = entry.age;
+      document.getElementById('height').value = entry.height;
+      document.getElementById('weight').value = entry.weight;
+      editIndex = index;
+    }
+
+    loadProgress();
+
+  </script>
+</body>
+</html>
