@@ -1,16 +1,10 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>داشبورد سلامت</title>
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="manifest" href="manifest.json">
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js');
-    }
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     body {
       font-family: 'Vazirmatn', sans-serif;
@@ -23,85 +17,48 @@
       max-width: 480px;
       margin: auto;
       padding: 20px;
-    }
-    .header {
       text-align: center;
-      margin-bottom: 25px;
+    }
+    h2 {
       color: #fff;
-    }
-    .header h2 {
-      font-weight: 700;
       font-size: 24px;
+      margin-bottom: 30px;
     }
-    .card {
-      background: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-      padding: 18px;
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    }
-    .card-title {
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 16px;
       font-size: 18px;
-      font-weight: 600;
-      color: #333;
-    }
-    .arrow {
+      border: none;
+      border-radius: 12px;
       background-color: #2196f3;
       color: white;
-      border-radius: 50%;
-      padding: 6px 10px;
-      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="header">
-      <h2 id="greeting">سلام 👋</h2>
-    </div>
-
-    <div class="card" onclick="location.href='meal-plan.html'">
-      <span class="card-title" id="mealBtn">🍽️ برنامه غذایی هفتگی</span>
-      <span class="arrow">➜</span>
-    </div>
-
-    <div class="card" onclick="location.href='exercise.html'">
-      <span class="card-title" id="exerciseBtn">🏋️‍♂️ تمرینات پیشنهادی</span>
-      <span class="arrow">➜</span>
-    </div>
-
-    <div class="card" onclick="location.href='progress.html'">
-      <span class="card-title" id="progressBtn">📊 گزارش پیشرفت</span>
-      <span class="arrow">➜</span>
-    </div>
-
-    <div class="card" onclick="location.href='settings.html'">
-      <span class="card-title" id="settingsBtn">⚙️ تنظیمات</span>
-      <span class="arrow">➜</span>
-    </div>
+    <h2 id="greeting">سلام 👋 کاربر</h2>
+    <button id="mealBtn" onclick="location.href='meal-plan.html'"></button>
+    <button id="exerciseBtn" onclick="location.href='exercise.html'"></button>
+    <button id="progressBtn" onclick="location.href='progress.html'"></button>
+    <button id="settingsBtn" onclick="location.href='settings.html'"></button>
   </div>
 
   <script>
     const translations = {
       fa: {
-        greeting: "Hi ",
-        meal: "🍽️ برنامه غذایی ",
+        greeting: "سلام 👋",
+        meal: "🍽️ برنامه غذایی",
         exercise: "🏋️‍♂️ تمرینات پیشنهادی",
         progress: "📊 گزارش پیشرفت",
         settings: "⚙️ تنظیمات"
       },
       en: {
-        greeting: "Hi ",
-        meal: "🍽️ Today's Meal Plan",
+        greeting: "Hi 👋",
+        meal: "🍽️ Meal Plan",
         exercise: "🏋️‍♂️ Recommended Exercises",
         progress: "📊 Progress Report",
         settings: "⚙️ Settings"
@@ -112,7 +69,6 @@
       const settings = JSON.parse(localStorage.getItem('userSettings')) || {};
       const lang = settings.language || 'fa';
       const t = translations[lang];
-
       const username = settings.username || 'کاربر';
 
       document.getElementById('greeting').textContent = `${t.greeting} ${username}`;
